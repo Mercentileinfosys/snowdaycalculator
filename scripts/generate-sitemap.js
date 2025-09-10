@@ -1,26 +1,54 @@
 const fs = require('fs');
 const path = require('path');
 
-const SITE_URL = process.env.REACT_APP_SITE_URL || 'https://snowdaycalculator.com';
+const SITE_URL = 'https://snowdaycaclulations.vercel.app';
 
 const routes = [
+  // Core pages
   { url: '/', changefreq: 'daily', priority: '1.0' },
   { url: '/premium', changefreq: 'weekly', priority: '0.9' },
+  { url: '/faq', changefreq: 'monthly', priority: '0.8' },
   { url: '/about', changefreq: 'monthly', priority: '0.7' },
-  { url: '/faq', changefreq: 'weekly', priority: '0.8' },
-  { url: '/how-it-works', changefreq: 'monthly', priority: '0.8' },
-  { url: '/privacy-policy', changefreq: 'yearly', priority: '0.3' },
-  { url: '/terms-of-service', changefreq: 'yearly', priority: '0.3' },
+  { url: '/how-it-works', changefreq: 'monthly', priority: '0.7' },
+  { url: '/pricing', changefreq: 'weekly', priority: '0.6' },
   
-  // SEO-friendly route aliases
-  { url: '/snow-day-calculator', changefreq: 'daily', priority: '0.9' },
-  { url: '/school-closure-predictor', changefreq: 'daily', priority: '0.9' },
-  { url: '/will-there-be-school-tomorrow', changefreq: 'daily', priority: '0.9' },
-  { url: '/snow-day-predictor', changefreq: 'daily', priority: '0.9' },
+  // Major cities - great for local SEO
+  { url: '/location/new-york', changefreq: 'weekly', priority: '0.6' },
+  { url: '/location/chicago', changefreq: 'weekly', priority: '0.6' },
+  { url: '/location/boston', changefreq: 'weekly', priority: '0.6' },
+  { url: '/location/denver', changefreq: 'weekly', priority: '0.6' },
+  { url: '/location/seattle', changefreq: 'weekly', priority: '0.6' },
+  { url: '/location/minneapolis', changefreq: 'weekly', priority: '0.6' },
+  { url: '/location/buffalo', changefreq: 'weekly', priority: '0.6' },
+  { url: '/location/cleveland', changefreq: 'weekly', priority: '0.6' },
+  { url: '/location/detroit', changefreq: 'weekly', priority: '0.6' },
+  { url: '/location/portland', changefreq: 'weekly', priority: '0.6' },
+  { url: '/location/philadelphia', changefreq: 'weekly', priority: '0.6' },
+  { url: '/location/pittsburgh', changefreq: 'weekly', priority: '0.6' },
+  { url: '/location/milwaukee', changefreq: 'weekly', priority: '0.6' },
   
-  // Location pages (examples)
-  { url: '/locations/new-york', changefreq: 'weekly', priority: '0.6' },
-  { url: '/locations/california', changefreq: 'weekly', priority: '0.6' }
+  // State pages for regional SEO
+  { url: '/state/new-york', changefreq: 'weekly', priority: '0.5' },
+  { url: '/state/california', changefreq: 'weekly', priority: '0.5' },
+  { url: '/state/michigan', changefreq: 'weekly', priority: '0.5' },
+  { url: '/state/ohio', changefreq: 'weekly', priority: '0.5' },
+  { url: '/state/pennsylvania', changefreq: 'weekly', priority: '0.5' },
+  { url: '/state/illinois', changefreq: 'weekly', priority: '0.5' },
+  { url: '/state/wisconsin', changefreq: 'weekly', priority: '0.5' },
+  { url: '/state/minnesota', changefreq: 'weekly', priority: '0.5' },
+  { url: '/state/colorado', changefreq: 'weekly', priority: '0.5' },
+  { url: '/state/washington', changefreq: 'weekly', priority: '0.5' },
+  
+  // Utility pages
+  { url: '/contact', changefreq: 'monthly', priority: '0.4' },
+  { url: '/privacy', changefreq: 'yearly', priority: '0.3' },
+  { url: '/terms', changefreq: 'yearly', priority: '0.3' },
+  
+  // Blog pages for content marketing
+  { url: '/blog', changefreq: 'weekly', priority: '0.6' },
+  { url: '/blog/how-schools-decide-snow-days', changefreq: 'monthly', priority: '0.5' },
+  { url: '/blog/winter-weather-safety-tips', changefreq: 'monthly', priority: '0.5' },
+  { url: '/blog/snow-day-prediction-science', changefreq: 'monthly', priority: '0.5' }
 ];
 
 const generateSitemap = () => {
@@ -36,19 +64,20 @@ ${routes.map(route => `  <url>
   </url>`).join('\n')}
 </urlset>`;
 
-  const buildDir = path.join(__dirname, '..', 'build');
-  const sitemapPath = path.join(buildDir, 'sitemap.xml');
+  const publicDir = path.join(__dirname, '..', 'public');
+  const sitemapPath = path.join(publicDir, 'sitemap.xml');
   
-  // Ensure build directory exists
-  if (!fs.existsSync(buildDir)) {
-    fs.mkdirSync(buildDir, { recursive: true });
+  // Ensure public directory exists
+  if (!fs.existsSync(publicDir)) {
+    fs.mkdirSync(publicDir, { recursive: true });
   }
+  
   
   fs.writeFileSync(sitemapPath, sitemap);
   console.log(`Sitemap generated successfully at ${sitemapPath}`);
   
   // Also generate robots.txt if it doesn't exist
-  const robotsPath = path.join(buildDir, 'robots.txt');
+  const robotsPath = path.join(publicDir, 'robots.txt');
   const robotsContent = `User-agent: *
 Allow: /
 
