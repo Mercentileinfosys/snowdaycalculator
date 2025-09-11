@@ -11,7 +11,9 @@ export default function handler(req, res) {
 <url>
   <loc>https://snowdaycaclulations.vercel.app/</loc>
   <lastmod>2025-09-10T08:20:52+00:00</lastmod>
-</url>`;
+</url>
+
+</urlset>`;
 
   res.setHeader('Content-Type', 'application/xml; charset=utf-8');
   res.setHeader('Cache-Control', 'public, max-age=3600');
